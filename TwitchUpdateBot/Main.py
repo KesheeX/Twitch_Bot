@@ -14,9 +14,15 @@ def get_help():
     with open("Commands.txt", "r") as f:
         lines = f.read()
         return lines.strip()
-
+    
+def read_id():
+    with open("twitch_id.txt", "r") as f:
+        lines = f.readlines()
+        return lines[0].strip()
+    
 token = read_token()
 help = get_help()
+twitch_id  = read_id()
 
 client = discord.Client()
 
@@ -25,7 +31,7 @@ def verify_user(name): #verifies if an account exist. Used in add_sub()
 
     headers = {
         'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': 'o7cvuf13litritbddsy3hm28l2gfth',
+        'Client-ID': twitch_id,
     }
 
     params = (
@@ -47,7 +53,7 @@ def verify_user(name): #verifies if an account exist. Used in add_sub()
 def check_status(name): #check live status of a single channel
     headers = {
         'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': 'o7cvuf13litritbddsy3hm28l2gfth',
+        'Client-ID': twitch_id,
     }
 
     params = (
@@ -65,7 +71,7 @@ def check_status(name): #check live status of a single channel
 
     headers = {
         'Accept': 'application/vnd.twitchtv.v5+json',
-        'Client-ID': 'o7cvuf13litritbddsy3hm28l2gfth',
+        'Client-ID': twitch_id,
     }
 
     streamCheck = requests.get('https://api.twitch.tv/kraken/streams/' + user_id, headers=headers)
